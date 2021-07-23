@@ -24,7 +24,7 @@ key_file=/foo/bar/api_key.pem
 
 - Requires pre-configured LPG to assemble the peering
 - Requires pre-created route tables to update in runtime
-  
+- Executor host requires python3 pre-installed
 ---  
 
 ## Sample tfvar file
