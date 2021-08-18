@@ -40,7 +40,7 @@ resource "null_resource" "to_route_table_update" {
     EOT
   }
 
-    provisioner "local-exec" {
+  provisioner "local-exec" {
     interpreter = ["/bin/bash", "-c"]
     when        = destroy
     command     = <<-EOT
@@ -70,7 +70,7 @@ resource "null_resource" "from_route_table_update" {
     EOT
   }
 
-   provisioner "local-exec" {
+  provisioner "local-exec" {
     interpreter = ["/bin/bash", "-c"]
 
     when    = destroy
