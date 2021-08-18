@@ -39,6 +39,16 @@ resource "null_resource" "to_route_table_update" {
     sleep 15
     EOT
   }
+
+    provisioner "local-exec" {
+    interpreter = ["/bin/bash", "-c"]
+    when        = destroy
+    command     = <<-EOT
+    source lpg_routes_config/bin/activate
+    ortu delete --rt-ocid ${self.triggers.to_rt_ocid} --cidr ${self.triggers.from_cidr_block} --ne-ocid ${self.triggers.to_lpg_ocid}
+    sleep 15
+    EOT
+  }
 }
 
 resource "null_resource" "from_route_table_update" {
@@ -56,6 +66,17 @@ resource "null_resource" "from_route_table_update" {
     command = <<-EOT
     source lpg_routes_config/bin/activate
     ortu --rt-ocid ${self.triggers.from_rt_ocid} --cidr ${self.triggers.to_cidr_block} --ne-ocid ${self.triggers.from_lpg_ocid}
+    sleep 15
+    EOT
+  }
+
+   provisioner "local-exec" {
+    interpreter = ["/bin/bash", "-c"]
+
+    when    = destroy
+    command = <<-EOT
+    source lpg_routes_config/bin/activate
+    ortu delete --rt-ocid ${self.triggers.from_rt_ocid} --cidr ${self.triggers.to_cidr_block} --ne-ocid ${self.triggers.from_lpg_ocid}
     sleep 15
     EOT
   }
