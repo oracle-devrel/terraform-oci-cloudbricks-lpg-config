@@ -7,14 +7,17 @@
 
 
 resource "null_resource" "enable_virtual_env" {
-  interpreter = ["/bin/bash", "-c"]
+  provisioner "local-exec" {
+    interpreter = ["/bin/bash", "-c"]
 
-  command = <<-EOT
-   python3 -m venv venv
-   source venv/bin/activate
-   pip3 install --upgrade pip
-   pip3 install ortu 
-  EOT
+    command = <<-EOT
+    python3 -m venv venv
+    source venv/bin/activate
+    pip3 install --upgrade pip
+    pip3 install ortu 
+    EOT  
+  }
+  
 }
 
 resource "null_resource" "to_route_table_update" {
