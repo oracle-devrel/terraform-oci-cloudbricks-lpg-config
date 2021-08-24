@@ -9,6 +9,7 @@
 resource "null_resource" "enable_virtual_env" {
 
   provisioner "local-exec" {
+    working_dir = "${path.module}"
     interpreter = ["/bin/bash", "-c"]
 
     command = <<-EOT
@@ -31,6 +32,7 @@ resource "null_resource" "to_route_table_update" {
     to_rt_ocid      = local.to_rt_ocid
   }
   provisioner "local-exec" {
+    working_dir = "${path.module}"
     interpreter = ["/bin/bash", "-c"]
 
     command = <<-EOT
@@ -41,6 +43,7 @@ resource "null_resource" "to_route_table_update" {
   }
 
   provisioner "local-exec" {
+    working_dir = "${path.module}"
     interpreter = ["/bin/bash", "-c"]
     when        = destroy
     command     = <<-EOT
@@ -61,6 +64,7 @@ resource "null_resource" "from_route_table_update" {
     from_rt_ocid  = local.from_rt_ocid
   }
   provisioner "local-exec" {
+    working_dir = "${path.module}"
     interpreter = ["/bin/bash", "-c"]
 
     command = <<-EOT
@@ -71,6 +75,7 @@ resource "null_resource" "from_route_table_update" {
   }
 
   provisioner "local-exec" {
+    working_dir = "${path.module}"
     interpreter = ["/bin/bash", "-c"]
 
     when    = destroy
